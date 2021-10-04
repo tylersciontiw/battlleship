@@ -1,41 +1,49 @@
 import random
 
-ships = {
-    "carrier": 5,
-    "battleship": 4,
-    "cruiser": 3,
-    "submarine": 3,
-    "destroyer": 2
-}
+class Ship():
+    def __init__(self, name, size):
+        self.name = name
+        self.size =size         
+        
+
+class Board():
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def place_ship(ship):
+        row = random.randint(0,9)
+        col = random.randint(0,9)
+        indexes = [[row, col]]
+        for i in range(0,ship.size):
+            indexes.append([col, i])
+        return indexes
+    
+    def create_board(self):
+        grid = []
+        for x in range(self.width):
+            row = []
+            for y in range(self.height):
+                row.append('0')
+            grid.append(row)
+        for ship in ships:
+            indexes = self.place_ship(ship)
+            for index in indexes:
+                board[index[0]][index[1]] = "S"
+
+
+carrier = Ship("carrier", 5)
+battleship = Ship("battleship",4)
+cruiser = Ship("cruiser",3)
+submarine = Ship("submarine",3)
+destroyer = Ship("destroyer", 2)
+
+grid = Board(10,10)
+grid = grid.create_board(10, 10)
+
+ships = [carrier, battleship, cruiser, submarine, destroyer]
 
 moves = []
-
-def random_row(grid):
-    return randint(0, len(board) - 1)
-def random_col(grid):
-    return randint(0, len(board[0]) - 1)
-
-
-def place_ship(ship):
-    row = random.randint(0,9)
-    col = random.randint(0,9)
-    indexes = [[row, col]]
-    for i in range(0,ship[1]):
-        indexes.append([col, i])
-    return indexes
-
-def initialize_board(board_width, board_height):
-    grid = []
-    for x in range(board_width):
-        row = []
-        for y in range(board_height):
-            row.append('0')
-        grid.append(row)
-    for ship in ships.items():
-        indexes = place_ship(ship)
-        for index in indexes:
-            grid[index[0]][index[1]] = "S"
-    return grid
 
 def user_input():
     count = 0
@@ -58,6 +66,5 @@ def user_input():
     for row in grid:
         print row
     
-grid = initialize_board(10, 10)
 user_input()
 
