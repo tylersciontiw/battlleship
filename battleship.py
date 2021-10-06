@@ -1,5 +1,6 @@
 import random
 
+
 class Ship():
     def __init__(self, name, size):
         self.name = name
@@ -11,7 +12,7 @@ class Board():
         self.width = width
         self.height = height
     
-    def place_ship(ship):
+    def place_ship(self, ship):
         row = random.randint(0,9)
         col = random.randint(0,9)
         indexes = [[row, col]]
@@ -29,19 +30,14 @@ class Board():
         for ship in ships:
             indexes = self.place_ship(ship)
             for index in indexes:
-                board[index[0]][index[1]] = "S"
+                grid[index[0]][index[1]] = "S"
+        
+        return grid
 
+ships = [Ship("carrier", 5), Ship("battleship",4), Ship("cruiser",3), Ship("submarine",3), Ship("destroyer", 2)]
 
-carrier = Ship("carrier", 5)
-battleship = Ship("battleship",4)
-cruiser = Ship("cruiser",3)
-submarine = Ship("submarine",3)
-destroyer = Ship("destroyer", 2)
-
-grid = Board(10,10)
-grid = grid.create_board(10, 10)
-
-ships = [carrier, battleship, cruiser, submarine, destroyer]
+board = Board(10,10)
+board = board.create_board()
 
 moves = []
 
@@ -52,18 +48,18 @@ def user_input():
         row = input("Please choose a row number 1-10 ")
         moves.append([column,row])
         count+=1
-        if grid[row-1][column-1] == "S":
-            grid[row-1][column-1] = "S/X"
+        if board[row-1][column-1] == "S":
+            board[row-1][column-1] = "S/X"
             print "Hit!"
         else:
             print "Miss!"
-            grid[row-1][column-1] = "X"
+            board[row-1][column-1] = "X"
         print("--------------")
         print"Moves remaining: ", 10-count
         print "Moves: ", moves
         print("--------------")
     
-    for row in grid:
+    for row in board:
         print row
     
 user_input()
